@@ -38,7 +38,7 @@ type Pack struct {
 	Synopsis string `json:"synopsis"`
 	Description string `json:"description"`
 	Type string `json:"type"`
-	Updated int `json:"updated"`
+	Updated int64 `json:"updated"`
 
 	Art []*Art `json:"art"`
 	Authors []*Author `json:"authors"`
@@ -73,7 +73,7 @@ type Art struct {
 	Compressed bool `json:"compressed"`
 	Sha1 string `json:"sha1"`
 	Size int `json:"size"`
-	Updated int `json:"updated"`
+	Updated int64 `json:"updated"`
 }
 
 type Author struct {
@@ -81,14 +81,14 @@ type Author struct {
 	Name string `json:"name"`
 	Type string `json:"type"`
 	Website string `json:"website"`
-	Updated int `json:"updated"`
+	Updated int64 `json:"updated"`
 }
 
 type VersionInfo struct {
 	ID int `json:"id"`
 	Name string `json:"name"`
 	Type string `json:"type"`
-	Updated int `json:"updated"`
+	Updated int64 `json:"updated"`
 }
 
 type Tag struct {
