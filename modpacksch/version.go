@@ -1,12 +1,16 @@
 package modpacksch
 
 type Version struct {
-	ID int
-	Parent int
-	Name string
-	Type string
-	Updated int64
-	Refreshed int64
+	ID int `json:"id"`
+	Parent int `json:"parent"`
+	Name string `json:"name"`
+	Type string `json:"type"`
+	Installs int `json:"installs"`
+	Plays int `json:"plays"`
+	Updated int64 `json:"updated"`
+	Refreshed int64 `json:"refreshed"`
+
+	Specs *Specs `json:"specs"`
 }
 
 type VersionChangelog struct {

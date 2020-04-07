@@ -60,7 +60,11 @@ type Pack struct {
 	Synopsis string `json:"synopsis"`
 	Description string `json:"description"`
 	Type string `json:"type"`
+	Featured bool `json:"featured"`
+	Installs int `json:"installs"`
+	Plays int `json:"plays"`
 	Updated int64 `json:"updated"`
+	Refreshed int64 `json:"updated"`
 
 	Art []*Art `json:"art"`
 	Authors []*Author `json:"authors"`
@@ -111,6 +115,8 @@ type VersionInfo struct {
 	Name string `json:"name"`
 	Type string `json:"type"`
 	Updated int64 `json:"updated"`
+
+	Specs *Specs `json:"specs"`
 }
 
 type Tag struct {
