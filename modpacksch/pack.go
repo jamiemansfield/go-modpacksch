@@ -64,7 +64,7 @@ type Pack struct {
 	Installs int `json:"installs"`
 	Plays int `json:"plays"`
 	Updated int64 `json:"updated"`
-	Refreshed int64 `json:"updated"`
+	Refreshed int64 `json:"refreshed"`
 
 	Art []*Art `json:"art"`
 	Authors []*Author `json:"authors"`
