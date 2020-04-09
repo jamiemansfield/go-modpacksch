@@ -9,46 +9,46 @@ import "strconv"
 type PackService service
 
 func (s *PackService) GetPack(id int) *Pack {
-	request, err := s.client.newRequest("GET", "/public/modpack/" + strconv.Itoa(id), nil)
+	request, err := s.client.NewRequest("GET", "public/modpack/" + strconv.Itoa(id), nil)
 	if err != nil {
 		return nil
 	}
 
 	var response Pack
-	_, err = s.client.do(request, &response)
+	_, err = s.client.Do(request, &response)
 	return &response
 }
 
 func (s *PackService) GetVersion(packId int, versionId int) *Version {
-	request, err := s.client.newRequest("GET", "/public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId), nil)
+	request, err := s.client.NewRequest("GET", "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId), nil)
 	if err != nil {
 		return nil
 	}
 
 	var response Version
-	_, err = s.client.do(request, &response)
+	_, err = s.client.Do(request, &response)
 	return &response
 }
 
 func (s *PackService) GetVersionChangelog(packId int, versionId int) *VersionChangelog {
-	request, err := s.client.newRequest("GET", "/public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/changelog", nil)
+	request, err := s.client.NewRequest("GET", "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/changelog", nil)
 	if err != nil {
 		return nil
 	}
 
 	var response VersionChangelog
-	_, err = s.client.do(request, &response)
+	_, err = s.client.Do(request, &response)
 	return &response
 }
 
 func (s *PackService) Search(limit int, term string) []int {
-	request, err := s.client.newRequest("GET", "/public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
+	request, err := s.client.NewRequest("GET", "public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
 	if err != nil {
 		return nil
 	}
 
 	var response searchResponse
-	_, err = s.client.do(request, &response)
+	_, err = s.client.Do(request, &response)
 	return response.Packs
 }
 
