@@ -16,7 +16,7 @@ client to access different parts of the modpacks.ch API. For example:
 client := modpacksch.NewClient(nil)
 
 // Get the FTB Revelation pack (id = 35)
-pack := client.Packs.GetPack(35)
+pack, err := client.Packs.GetPack(35)
 ```
 
 ## License
