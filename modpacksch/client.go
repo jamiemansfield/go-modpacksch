@@ -32,6 +32,7 @@ type Client struct {
 	// Services used for accessing different parts of the modpacks.ch
 	// API.
 	Packs *PackService
+	Tags *TagService
 }
 
 type service struct {
@@ -52,6 +53,7 @@ func NewClient(httpClient *http.Client) *Client {
 		UserAgent: defaultUserAgent,
 	}
 	c.Packs = &PackService{client: c}
+	c.Tags = &TagService{client: c}
 	return c
 }
 
