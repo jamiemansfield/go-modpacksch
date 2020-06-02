@@ -11,6 +11,7 @@ type Pack struct {
 	Plays int `json:"plays"`
 	Updated int64 `json:"updated"`
 	Refreshed int64 `json:"refreshed"`
+	Notification string `json:"notification"`
 
 	Art []*Art `json:"art"`
 	Authors []*Author `json:"authors"`
