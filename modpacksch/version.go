@@ -13,6 +13,10 @@ type Version struct {
 	Specs *Specs `json:"specs"`
 	Targets []*Target `json:"targets"`
 	Files []*File `json:"files"`
+
+	// Error Handling
+	Status string `json:"status"`
+	Message string `json:"message"`
 }
 
 type Target struct {
@@ -41,4 +45,7 @@ type File struct {
 type VersionChangelog struct {
 	Content string `json:"content"`
 	Updated int64 `json:"updated"`
+
+	// Error Handling
+	Status string `json:"status"`
 }

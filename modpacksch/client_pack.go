@@ -1,6 +1,7 @@
 package modpacksch
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 )
@@ -19,6 +20,13 @@ func (s *PackService) GetPack(id int) (*Pack, error) {
 
 	var response Pack
 	_, err = s.client.Do(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Status == StatusError {
+		err = errors.New("client: " + response.Message)
+	}
 	return &response, err
 }
 
@@ -30,6 +38,13 @@ func (s *PackService) GetVersion(packId int, versionId int) (*Version, error) {
 
 	var response Version
 	_, err = s.client.Do(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Status == StatusError {
+		err = errors.New("client: " + response.Message)
+	}
 	return &response, err
 }
 
@@ -41,6 +56,13 @@ func (s *PackService) GetVersionChangelog(packId int, versionId int) (*VersionCh
 
 	var response VersionChangelog
 	_, err = s.client.Do(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Status == StatusError {
+		err = errors.New("client: " + response.Content)
+	}
 	return &response, err
 }
 
