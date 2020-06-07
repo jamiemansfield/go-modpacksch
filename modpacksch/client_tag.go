@@ -1,6 +1,9 @@
 package modpacksch
 
-import "strconv"
+import (
+	"net/http"
+	"strconv"
+)
 
 // TagService handles communication with the tags related
 // methods of the modpacks.ch API.
@@ -9,7 +12,7 @@ import "strconv"
 type TagService service
 
 func (s *PackService) MostUsed(limit int) ([]string, error) {
-	request, err := s.client.NewRequest("GET", "public/tag/popular/" + strconv.Itoa(limit), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/tag/popular/" + strconv.Itoa(limit), nil)
 	if err != nil {
 		return nil, err
 	}
