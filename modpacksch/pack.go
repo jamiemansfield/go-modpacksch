@@ -14,6 +14,7 @@ type Pack struct {
 	Notification string `json:"notification"`
 
 	Art []*Art `json:"art"`
+	Links []*Link `json:"links"`
 	Authors []*Author `json:"authors"`
 	Versions []*VersionInfo `json:"versions"`
 	Tags []*Tag `json:"tags"`
@@ -73,4 +74,11 @@ type VersionInfo struct {
 type Tag struct {
 	ID int `json:"id"`
 	Name string `json:"name"`
+}
+
+type Link struct {
+	ID int `json:"id"`
+	Name string `json:"name"`
+	Link string `json:"link"`
+	Type string `json:"type"`
 }
