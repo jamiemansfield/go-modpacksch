@@ -19,7 +19,11 @@ func (s *PackService) MostUsed(limit int) ([]string, error) {
 
 	var response tagResponse
 	_, err = s.client.Do(request, &response)
-	return response.Tags, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Tags, nil
 }
 
 type tagResponse struct {

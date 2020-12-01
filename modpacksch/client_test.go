@@ -11,4 +11,12 @@ func TestClient_ErrorHandling(t *testing.T) {
 		return
 	}
 	t.Logf("Error: %s", err)
+
+	packs, err := client.Packs.All()
+	if err != nil {
+		t.Error("client.Packs.All() shouldn't error", err)
+		return
+	}
+
+	t.Logf("Packs[0] = %d", packs[0])
 }

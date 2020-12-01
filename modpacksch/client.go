@@ -136,6 +136,14 @@ func CheckResponse(r *http.Response) error {
 			return err
 		}
 	}
+	// Repopulate body so that it can proceed to be read again, should
+	// there be no error.
+	r.Body = ioutil.NopCloser(bytes.NewBuffer(data))
+
+	// If we have no error information, assume success
+	if errorResponse.Status == "" && errorResponse.Message == "" {
+		return nil
+	}
 
 	// If we're a "success", then proceed
 	if errorResponse.Status == StatusSuccess {
