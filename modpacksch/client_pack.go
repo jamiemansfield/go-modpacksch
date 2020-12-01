@@ -66,6 +66,28 @@ func (s *PackService) GetVersionChangelog(packId int, versionId int) (*VersionCh
 	return &response, err
 }
 
+func (s *PackService) IncrementPlayCount(packId int, versionId int) error {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/play", nil)
+	if err != nil {
+		return err
+	}
+
+	var response statsResponse
+	_, err = s.client.Do(request, &response)
+	return err
+}
+
+func (s *PackService) IncrementInstallCount(packId int, versionId int) error {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/install", nil)
+	if err != nil {
+		return err
+	}
+
+	var response statsResponse
+	_, err = s.client.Do(request, &response)
+	return err
+}
+
 func (s *PackService) Search(limit int, term string) ([]int, error) {
 	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
 	if err != nil {
@@ -119,6 +141,9 @@ func (s *PackService) MostInstalledWithTag(limit int, tag string) ([]int, error)
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
 	return response.Packs, err
+}
+
+type statsResponse struct {
 }
 
 type searchResponse struct {
