@@ -88,6 +88,17 @@ func (s *PackService) IncrementInstallCount(packId int, versionId int) error {
 	return err
 }
 
+func (s *PackService) All() ([]int, error) {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/all/", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var response searchResponse
+	_, err = s.client.Do(request, &response)
+	return response.Packs, err
+}
+
 func (s *PackService) Search(limit int, term string) ([]int, error) {
 	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
 	if err != nil {
