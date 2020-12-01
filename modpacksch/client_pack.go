@@ -1,7 +1,6 @@
 package modpacksch
 
 import (
-	"errors"
 	"net/http"
 	"strconv"
 )
@@ -24,10 +23,7 @@ func (s *PackService) GetPack(id int) (*Pack, error) {
 		return nil, err
 	}
 
-	if response.Status == StatusError {
-		err = errors.New("client: " + response.Message)
-	}
-	return &response, err
+	return &response, nil
 }
 
 func (s *PackService) GetVersion(packId int, versionId int) (*Version, error) {
@@ -42,10 +38,7 @@ func (s *PackService) GetVersion(packId int, versionId int) (*Version, error) {
 		return nil, err
 	}
 
-	if response.Status == StatusError {
-		err = errors.New("client: " + response.Message)
-	}
-	return &response, err
+	return &response, nil
 }
 
 func (s *PackService) GetVersionChangelog(packId int, versionId int) (*VersionChangelog, error) {
@@ -60,10 +53,7 @@ func (s *PackService) GetVersionChangelog(packId int, versionId int) (*VersionCh
 		return nil, err
 	}
 
-	if response.Status == StatusError {
-		err = errors.New("client: " + response.Content)
-	}
-	return &response, err
+	return &response, nil
 }
 
 func (s *PackService) IncrementPlayCount(packId int, versionId int) error {
@@ -74,7 +64,11 @@ func (s *PackService) IncrementPlayCount(packId int, versionId int) error {
 
 	var response statsResponse
 	_, err = s.client.Do(request, &response)
-	return err
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *PackService) IncrementInstallCount(packId int, versionId int) error {
@@ -85,7 +79,11 @@ func (s *PackService) IncrementInstallCount(packId int, versionId int) error {
 
 	var response statsResponse
 	_, err = s.client.Do(request, &response)
-	return err
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *PackService) All() ([]int, error) {
@@ -96,7 +94,11 @@ func (s *PackService) All() ([]int, error) {
 
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
-	return response.Packs, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
 }
 
 func (s *PackService) Search(limit int, term string) ([]int, error) {
@@ -107,7 +109,11 @@ func (s *PackService) Search(limit int, term string) ([]int, error) {
 
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
-	return response.Packs, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
 }
 
 func (s *PackService) MostPlayed(limit int) ([]int, error) {
@@ -118,7 +124,11 @@ func (s *PackService) MostPlayed(limit int) ([]int, error) {
 
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
-	return response.Packs, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
 }
 
 func (s *PackService) MostPlayedWithTag(limit int, tag string) ([]int, error) {
@@ -129,7 +139,11 @@ func (s *PackService) MostPlayedWithTag(limit int, tag string) ([]int, error) {
 
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
-	return response.Packs, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
 }
 
 func (s *PackService) MostInstalled(limit int) ([]int, error) {
@@ -140,7 +154,11 @@ func (s *PackService) MostInstalled(limit int) ([]int, error) {
 
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
-	return response.Packs, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
 }
 
 func (s *PackService) MostInstalledWithTag(limit int, tag string) ([]int, error) {
@@ -151,7 +169,11 @@ func (s *PackService) MostInstalledWithTag(limit int, tag string) ([]int, error)
 
 	var response searchResponse
 	_, err = s.client.Do(request, &response)
-	return response.Packs, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
 }
 
 type statsResponse struct {

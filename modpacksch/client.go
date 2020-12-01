@@ -5,14 +5,19 @@ package modpacksch
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
 
-var (
+const (
 	defaultBaseURL   = "https://api.modpacks.ch/"
 	defaultUserAgent = "go-modpacksch"
+
+	StatusSuccess = "success"
+	StatusError = "error"
 )
 
 // A client manages communication with the modpacks.ch API.
@@ -108,6 +113,49 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	}
 	defer resp.Body.Close()
 
-	err = json.NewDecoder(resp.Body).Decode(v)
+	err = CheckResponse(resp)
+	if err != nil {
+		return resp, err
+	}
+
+	if v != nil {
+		err = json.NewDecoder(resp.Body).Decode(v)
+	}
+
 	return resp, err
+}
+
+func CheckResponse(r *http.Response) error {
+	errorResponse := &ErrorResponse{
+		Response: r,
+	}
+	data, err := ioutil.ReadAll(r.Body)
+	if err == nil && data != nil {
+		err := json.Unmarshal(data, errorResponse)
+		if err != nil {
+			return err
+		}
+	}
+
+	// If we're a "success", then proceed
+	if errorResponse.Status == StatusSuccess {
+		return nil
+	}
+
+	return errorResponse
+}
+
+type ErrorResponse struct {
+	Response *http.Response
+
+	Status string `json:"status"`
+	Message string `json:"message"`
+}
+
+var _ error = (*ErrorResponse)(nil)
+
+func (r *ErrorResponse) Error() string {
+	return fmt.Sprintf("%v %v: %v - %v",
+		r.Response.Request.Method, r.Response.Request.URL,
+		r.Status, r.Message)
 }
