@@ -38,6 +38,7 @@ type Client struct {
 	// API.
 	Packs *PackService
 	Tags *TagService
+	CurseForge *CurseForgeService
 }
 
 type service struct {
@@ -59,6 +60,7 @@ func NewClient(httpClient *http.Client) *Client {
 	}
 	c.Packs = &PackService{client: c}
 	c.Tags = &TagService{client: c}
+	c.CurseForge = &CurseForgeService{client: c}
 	return c
 }
 
