@@ -40,3 +40,22 @@ func (s *CurseForgeService) GetVersion(packId int, versionId int) (*Version, err
 
 	return &response, nil
 }
+
+func (s *CurseForgeService) Search(limit int, term string) ([]int, error) {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var response curseForgeSearchResponse
+	_, err = s.client.Do(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.CurseForge, nil
+}
+
+type curseForgeSearchResponse struct {
+	CurseForge []int `json:"curseforge"`
+}
