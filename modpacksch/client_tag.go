@@ -11,7 +11,7 @@ import (
 // modpacks.ch API docs: https://modpacksch.docs.apiary.io/#/reference/0/tags
 type TagService service
 
-func (s *PackService) MostUsed(limit int) ([]string, error) {
+func (s *TagService) MostUsed(limit int) ([]string, error) {
 	request, err := s.client.NewRequest(http.MethodGet, "public/tag/popular/" + strconv.Itoa(limit), nil)
 	if err != nil {
 		return nil, err
