@@ -12,7 +12,7 @@ import (
 type CurseForgeService service
 
 func (s *CurseForgeService) GetPack(id int) (*Pack, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/curseforge/" + strconv.Itoa(id), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/curseforge/"+strconv.Itoa(id), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -26,13 +26,13 @@ func (s *CurseForgeService) GetPack(id int) (*Pack, error) {
 	return &response, nil
 }
 
-func (s *CurseForgeService) GetVersion(packId int, versionId int) (*Version, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/curseforge/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId), nil)
+func (s *CurseForgeService) GetVersion(packId int, versionId int) (*PackVersion, error) {
+	request, err := s.client.NewRequest(http.MethodGet, "public/curseforge/"+strconv.Itoa(packId)+"/"+strconv.Itoa(versionId), nil)
 	if err != nil {
 		return nil, err
 	}
 
-	var response Version
+	var response PackVersion
 	_, err = s.client.Do(request, &response)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (s *CurseForgeService) GetVersion(packId int, versionId int) (*Version, err
 }
 
 func (s *CurseForgeService) Search(limit int, term string) ([]int, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/"+strconv.Itoa(limit)+"?term="+term, nil)
 	if err != nil {
 		return nil, err
 	}

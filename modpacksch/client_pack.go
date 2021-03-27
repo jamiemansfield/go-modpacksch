@@ -12,7 +12,7 @@ import (
 type PackService service
 
 func (s *PackService) GetPack(id int) (*Pack, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(id), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/"+strconv.Itoa(id), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -26,13 +26,13 @@ func (s *PackService) GetPack(id int) (*Pack, error) {
 	return &response, nil
 }
 
-func (s *PackService) GetVersion(packId int, versionId int) (*Version, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId), nil)
+func (s *PackService) GetVersion(packId int, versionId int) (*PackVersion, error) {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/"+strconv.Itoa(packId)+"/"+strconv.Itoa(versionId), nil)
 	if err != nil {
 		return nil, err
 	}
 
-	var response Version
+	var response PackVersion
 	_, err = s.client.Do(request, &response)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (s *PackService) GetVersion(packId int, versionId int) (*Version, error) {
 }
 
 func (s *PackService) GetVersionChangelog(packId int, versionId int) (*VersionChangelog, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/changelog", nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/"+strconv.Itoa(packId)+"/"+strconv.Itoa(versionId)+"/changelog", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (s *PackService) GetVersionChangelog(packId int, versionId int) (*VersionCh
 }
 
 func (s *PackService) IncrementPlayCount(packId int, versionId int) error {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/play", nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/"+strconv.Itoa(packId)+"/"+strconv.Itoa(versionId)+"/play", nil)
 	if err != nil {
 		return err
 	}
@@ -72,7 +72,7 @@ func (s *PackService) IncrementPlayCount(packId int, versionId int) error {
 }
 
 func (s *PackService) IncrementInstallCount(packId int, versionId int) error {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/" + strconv.Itoa(packId) + "/" + strconv.Itoa(versionId) + "/install", nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/"+strconv.Itoa(packId)+"/"+strconv.Itoa(versionId)+"/install", nil)
 	if err != nil {
 		return err
 	}
@@ -102,7 +102,7 @@ func (s *PackService) All() ([]int, error) {
 }
 
 func (s *PackService) Search(limit int, term string) ([]int, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/" + strconv.Itoa(limit) + "?term=" + term, nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/search/"+strconv.Itoa(limit)+"?term="+term, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func (s *PackService) Search(limit int, term string) ([]int, error) {
 }
 
 func (s *PackService) MostPlayed(limit int) ([]int, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/plays/" + strconv.Itoa(limit), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/plays/"+strconv.Itoa(limit), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ func (s *PackService) MostPlayed(limit int) ([]int, error) {
 }
 
 func (s *PackService) MostPlayedWithTag(limit int, tag string) ([]int, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/plays/" + tag + "/" + strconv.Itoa(limit), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/plays/"+tag+"/"+strconv.Itoa(limit), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ func (s *PackService) MostPlayedWithTag(limit int, tag string) ([]int, error) {
 }
 
 func (s *PackService) MostInstalled(limit int) ([]int, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/installs/" + strconv.Itoa(limit), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/installs/"+strconv.Itoa(limit), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (s *PackService) MostInstalled(limit int) ([]int, error) {
 }
 
 func (s *PackService) MostInstalledWithTag(limit int, tag string) ([]int, error) {
-	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/installs/" + tag + "/" + strconv.Itoa(limit), nil)
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/popular/installs/"+tag+"/"+strconv.Itoa(limit), nil)
 	if err != nil {
 		return nil, err
 	}
