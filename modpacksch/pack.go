@@ -18,10 +18,6 @@ type Pack struct {
 	Authors  []*Author          `json:"authors"`
 	Versions []*PackVersionInfo `json:"versions"`
 	Tags     []*Tag             `json:"tags"`
-
-	// Error Handling
-	Status  string `json:"status"`
-	Message string `json:"message"`
 }
 
 func (p *Pack) HasIcon() bool {
