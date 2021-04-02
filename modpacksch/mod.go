@@ -29,6 +29,7 @@ type ModVersion struct {
 	ClientOnly bool `json:"clientonly"`
 
 	Targets []*Target `json:"targets"`
+	Dependencies []int `json:"dependencies"`
 
 	Updated int64 `json:"updated"`
 }
