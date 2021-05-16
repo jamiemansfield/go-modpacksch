@@ -176,6 +176,36 @@ func (s *PackService) MostInstalledWithTag(limit int, tag string) ([]int, error)
 	return response.Packs, nil
 }
 
+func (s *PackService) RecentlyUpdated(limit int) ([]int, error) {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/updated/"+strconv.Itoa(limit), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var response searchResponse
+	_, err = s.client.Do(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
+}
+
+func (s *PackService) Featured(limit int) ([]int, error) {
+	request, err := s.client.NewRequest(http.MethodGet, "public/modpack/featured/"+strconv.Itoa(limit), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var response searchResponse
+	_, err = s.client.Do(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Packs, nil
+}
+
 type statsResponse struct {
 }
 
